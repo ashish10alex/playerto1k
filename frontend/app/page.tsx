@@ -12,7 +12,6 @@ import { footballMatches } from "./footballMatches";
 import { TableComponent } from "./table";
 import { SofaPlayerEmbed } from './sofa';
 
-
 export default function Home() {
     const [selectedMatch, setSelectedMatch] = useState<string>("Al Nassr vs Al Hilal: 1");
 
@@ -21,9 +20,6 @@ export default function Home() {
         console.log(`Clicked on match: ${match}`);
         setSelectedMatch(match);
     };
-
-
-
 
     return (
         <div className="flex h-screen">
