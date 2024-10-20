@@ -1,5 +1,5 @@
 import os
-import json
+from utils import  write_json_to_file
 import requests
 from dotenv import load_dotenv
 load_dotenv()
@@ -12,9 +12,6 @@ AL_NASSR_TEAM_ID = "2939"
 # # querystring = {"league":"307","season":"2024","team":"2939"}
 # querystring = {"season":"2023","team":"2939"}
 
-def write_to_file(data, file_name):
-    with open(file_name, 'w') as f:
-        json.dump(data, f)
 
 def get_fixtures_for_team(team_id:str, season:str):
     url = "https://api-football-v1.p.rapidapi.com/v3/fixtures"
@@ -27,7 +24,7 @@ def get_fixtures_for_team(team_id:str, season:str):
         }
     response = requests.get(url, headers=headers, params=querystring)
     output = response.json()
-    write_to_file(output, f'data/{team_id}_fixutures_{season}.json')
+    write_json_to_file(output, f'data/{team_id}_fixutures_{season}.json')
 
 
 def get_player_stats_for_fixture(fixture_id:str):
@@ -44,7 +41,7 @@ def get_player_stats_for_fixture(fixture_id:str):
     output = response.json()
 
     print(output)
-    write_to_file(output, f'data/fixture_{fixture_id}_players.json')
+    write_json_to_file(output, f'data/fixture_{fixture_id}_players.json')
 
 
 def get_players_in_team(team_id:str):
@@ -59,7 +56,7 @@ def get_players_in_team(team_id:str):
 
     response = requests.get(url, headers=headers, params=querystring)
     output = response.json()
-    write_to_file(output, f'data/team_{team_id}_players.json')
+    write_json_to_file(output, f'data/team_{team_id}_players.json')
 
 
 # fixture_id = "1096001"
