@@ -54,20 +54,19 @@ def get_fixtures_for_team(filepath: str) -> list:
     return fixture_list
 
 
-year = 2023
-filepath = f'data/al_nassr_fixtures_{year}.json'
-fixture_list = get_fixtures_for_team(filepath)
-df = pd.DataFrame(fixture_list)
-print(df.columns)
-df.to_csv(f'data/{team_id}_fixtures_{year}.csv', index=False)
 
-year = 2024
-filepath = f'data/al_nassr_fixtures_{year}.json'
-fixture_list = get_fixtures_for_team(filepath)
-df = pd.DataFrame(fixture_list)
-df.to_csv(f'data/{team_id}_fixtures_{year}.csv', index=False)
+data_for = [
+        # { "team_id" : 496, "seasons": ["2020", "2019", "2018"] },
+        # { "team_id" : 541, "seasons": [ "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010", ] },
+        # { "team_id" : 2939, "seasons": ["2022"] },
+        ]
 
-data_list = []
+for team in data_for:
+    for season in team['seasons']:
+        filepath = f'data/{team["team_id"]}_fixtures_{season}.json'
+        fixture_list = get_fixtures_for_team(filepath)
+        df = pd.DataFrame(fixture_list)
+        df.to_csv(f'data/{team["team_id"]}_fixtures_{season}.csv', index=False)
 
 # Process each fixture
 # try:
