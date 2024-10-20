@@ -39,9 +39,10 @@ def get_player_stats_for_fixture(fixture_id:str):
 
     response = requests.get(url, headers=headers, params=querystring)
     output = response.json()
+    return output
 
-    print(output)
-    write_json_to_file(output, f'data/fixture_{fixture_id}_players.json')
+    # print(output)
+    # write_json_to_file(output, f'data/fixture_{fixture_id}_players.json')
 
 
 def get_players_in_team(team_id:str):
@@ -60,5 +61,5 @@ def get_players_in_team(team_id:str):
 
 
 # fixture_id = "1096001"
-fixture_id = "1074371"
-get_player_stats_for_fixture(fixture_id)
+# fixture_id = "1074371"
+# get_player_stats_for_fixture(fixture_id)
