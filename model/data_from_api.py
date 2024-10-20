@@ -59,7 +59,21 @@ def get_players_in_team(team_id:str):
     output = response.json()
     write_json_to_file(output, f'data/team_{team_id}_players.json')
 
+def get_teams_player_has_played_for(player_id:str):
+    url = "https://api-football-v1.p.rapidapi.com/v3/players/teams"
+
+    querystring = {"player":player_id}
+
+    headers = {
+        "x-rapidapi-key": x_rapidapi_key,
+        "x-rapidapi-host": "api-football-v1.p.rapidapi.com"
+    }
+    response = requests.get(url, headers=headers, params=querystring)
+    return response.json()
+
 
 # fixture_id = "1096001"
 # fixture_id = "1074371"
 # get_player_stats_for_fixture(fixture_id)
+# output = get_teams_player_has_played_for("874")
+# write_json_to_file(output, 'data/ronaldo_teams.json')
