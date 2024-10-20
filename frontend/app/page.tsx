@@ -17,7 +17,6 @@ export default function Home() {
 
 
     const handleMatchClick = (match: string) => {
-        console.log(`Clicked on match: ${match}`);
         setSelectedMatch(match);
     };
 

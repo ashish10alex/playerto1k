@@ -20,6 +20,7 @@ interface TeamStat {
 
 async function getPosts(teamId: number): Promise<TeamStat | null> {
     const response = await fetch(`/api/get_team_stat?team_id=${teamId}`)
+    console.log(`response: ${response}`)
     let output = await response.json()
     return output as TeamStat
 }
