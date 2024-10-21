@@ -16,8 +16,10 @@ export async function GET(request: NextRequest) {
     if (!team_id) {
         return NextResponse.json({ error: 'Team ID is required' }, { status: 400 })
     }
+    const season = 2024;
+    const league = 307; // saudi league
 
-    const url = `https://api-football-v1.p.rapidapi.com/v3/teams/statistics?league=39&season=2020&team=${team_id}`;
+    const url = `https://api-football-v1.p.rapidapi.com/v3/teams/statistics?league=${league}&season=${season}&team=${team_id}`;
     const options: FetchOptions = {
         method: 'GET',
         headers: {

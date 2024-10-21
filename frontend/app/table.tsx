@@ -20,7 +20,6 @@ interface TeamStat {
 
 async function getPosts(teamId: number): Promise<TeamStat | null> {
     const response = await fetch(`/api/get_team_stat?team_id=${teamId}`)
-    console.log(`response: ${response}`)
     let output = await response.json()
     return output as TeamStat
 }
@@ -45,8 +44,8 @@ const resultToHex = (result: string) => {
 
 export function TableComponent() {
 
-    const teamOneId = 33
-    const teamTwoId = 34
+    const teamOneId = 2939
+    const teamTwoId = 2932
 
     const [teamOne, setTeamOne] = useState<TeamStat>({ response: { form: '', team: { name: 'one' } } })
     const [teamTwo, setTeamTwo] = useState<TeamStat>({ response: { form: '', team: { name: 'two' } } })
