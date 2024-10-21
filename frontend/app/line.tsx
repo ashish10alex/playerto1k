@@ -1,12 +1,12 @@
 "use client"
 
 import * as React from "react"
+import { useEffect, useState } from "react"
 import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts"
 
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
@@ -104,11 +104,30 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
+async function getPlayerGoals(playerId: number): Promise<any | null> {
+    //let totalGoals = 0
+    //for (let season = 2024; season < 2025; season++) {
+    //    const response = await fetch(`/api/get_player_stat?player_id=${playerId}&season=${season}`)
+    //    let output = await response.json()
+    //    console.log(output.response.length)
+    //    for (let i = 0; i < output.response[0].statistics.length; i++) {
+    //        console.log(`season: ${season} team: ${output.response[0].statistics[i].team.name} goals: ${output.response[0].statistics[i].goals.total}`)
+    //        totalGoals += output.response[0].statistics[i].goals.total
+    //    }
+    //}
+    //return totalGoals
+    return 907
+}
+
 export function LineComponent() {
-  const totalGoals = React.useMemo(
-    () => chartData[chartData.length - 1].runningTotal,
-    []
-  );
+
+   const [totalGoals, setTotalGoals] = useState()
+
+   useEffect(() => {
+       getPlayerGoals(874).then(data => {
+           if (data) setTotalGoals(data)
+       })
+   }, [])
 
   return (
     <Card>
@@ -122,7 +141,7 @@ export function LineComponent() {
                 Current goals
             </span>
             <span className="text-lg font-bold leading-none sm:text-3xl">
-              {907}
+              {totalGoals}
             </span>
           </div>
         </div>

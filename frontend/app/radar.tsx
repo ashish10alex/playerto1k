@@ -54,7 +54,6 @@ export const RadarComponent: React.FC<RadarComponentProps> = ({ selectedMatch })
 
     const [chartData, setChartData] = useState<ChartDataPoint[]>(defaultChartData);
     useEffect(() => {
-        console.log(`I was clicked on ${selectedMatch}`);
     }, [selectedMatch]);
 
   return (

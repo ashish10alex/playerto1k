@@ -1,6 +1,6 @@
 'use client';
-
 import React from 'react';
+import Image from 'next/image';
 import { Separator } from "@/components/ui/separator"
 import { format } from 'date-fns';
 
@@ -26,17 +26,21 @@ export const MatchItem: React.FC<MatchItemProps> = ({ team1, team1_logo, team2, 
         onClick={() => onClick(team1, team2)}
       >
         <div className="flex flex-col">
-          <span className="text-sm">{team1}</span>
-          <span className="text-sm">{team2}</span>
+          <div className="flex items-center">
+            <Image src={team1_logo} alt={`${team1} logo`} width={20} height={20} className="mr-2" />
+            <span className="text-sm">{team1}</span>
+          </div>
+          <div className="flex items-center mt-1">
+            <Image src={team2_logo} alt={`${team2} logo`} width={20} height={20} className="mr-2" />
+            <span className="text-sm">{team2}</span>
+          </div>
         </div>
         <div className="flex items-center">
-
-          { status === 'NS' ? (
-              <span className="text-sm mr-4"></span>
+          {status === 'NS' ? (
+            <span className="text-sm mr-4"></span>
           ) : (
-              <span className="text-sm mr-4">{goals}</span>
+            <span className="text-sm mr-4">{goals}</span>
           )}
-
           <div className="flex flex-col items-end">
             <span className="text-xs text-gray-500">{formattedDate}</span>
             <span className="text-xs text-gray-500">{formattedTime}</span>

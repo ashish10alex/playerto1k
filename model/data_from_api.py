@@ -13,8 +13,6 @@ SPORTING_CP_TEAM_ID = "228"
 MANCHESTER_UNITED_TEAM_ID = "33"
 JUVENTUS_TEAM_ID = "496"
 REAL_MADRID_TEAM_ID = "541"
-# # querystring = {"league":"307","season":"2024","team":"2939"}
-# querystring = {"season":"2023","team":"2939"}
 
 
 def get_fixtures(team_id:str, season:str):
