@@ -3,6 +3,8 @@ import { NextRequest } from 'next/server'
 import  prisma  from "@/lib/prisma";
 import { Fixture } from '@/types'
 
+
+
 type FetchOptions = {
   method: string;
   headers: {
@@ -38,7 +40,6 @@ let getTeamFixtures = async (output:any): Promise<Fixture[]> => {
             statusShort: output.response[i].fixture.status.short,
         })
     }
-    fixtures.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
     return fixtures
 }
 

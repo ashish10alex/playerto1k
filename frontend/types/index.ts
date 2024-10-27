@@ -1,5 +1,5 @@
 
-export type Fixture = {
+export interface Fixture {
     id: number;
     season: number;
     date: string;
@@ -11,7 +11,6 @@ export type Fixture = {
     awayTeamLogo: string;
     goals: string;
     statusShort: string;
-    players: string[];
+    players?: any[];
 }
-
 
