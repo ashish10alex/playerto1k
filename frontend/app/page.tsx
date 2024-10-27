@@ -11,39 +11,37 @@ import { RadarComponent } from "./radar";
 import { TableComponent } from "./table";
 import { SofaPlayerEmbed } from './sofa';
 
+type Fixture = {
+    id: number;
+    season: number;
+    date: string;
+    homeTeamId: number;
+    homeTeamName: string;
+    homeTeamLogo: string;
+    awayTeamId: number;
+    awayTeamName: string;
+    awayTeamLogo: string;
+    goals: string;
+    statusShort: string;
+}
 
-async function getTeamFixtures(teamId: number) {
-    const response = await fetch(`/api/get_team_fixtures?team_id=${teamId}`)
-    let output = await response.json()
-    let fixtures = [];
 
-    for (let i = 0; i < output.response.length; i++) {
-        let status = output.response[i].fixture.status.short;
-        let goals = "";
-        if ((status === "FT" || status === "HT" || status === "PN") &&  output.response[i].goals.home !== null && output.response[i].goals.away !== null) {
-            goals = output.response[i].goals.home + " - " + output.response[i].goals.away
-        }else{
-            goals = ""
-        }
+async function getTeamFixtures(teamId: number): Promise<Fixture[]> {
+    const url = `/api/get_team_fixtures/?teamId=${teamId}`;
+    const response = await fetch(url);
 
-        fixtures.push({
-            fixture_date: output.response[i].fixture.date,
-            team1: output.response[i].teams.home.name,
-            team1_logo: output.response[i].teams.home.logo,
-            team2: output.response[i].teams.away.name,
-            team2_logo: output.response[i].teams.away.logo,
-            goals: goals,
-            status: output.response[i].fixture.status.short,
-            key: output.response[i].fixture.id
-        })
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
     }
-    fixtures.sort((a, b) => new Date(a.fixture_date).getTime() - new Date(b.fixture_date).getTime())
-    return fixtures
+    const data: Fixture[] = await response.json();
+    console.log(data);
+
+    return data
 }
 
 export default function Home() {
     const [selectedMatch, setSelectedMatch] = useState<string>("");
-    const [teamFixtures, setTeamFixtures] = useState<any>([])
+    const [teamFixtures, setTeamFixtures] = useState<Fixture[]>([]);
     const alNassrTeamId = 2939
 
     useEffect(() => {
@@ -68,14 +66,14 @@ export default function Home() {
                     <h4 className="mb-4 text-sm font-bold leading-none">Matches</h4>
                     {teamFixtures.map((data:any) => (
                         <MatchItem
-                            key={data.key}
-                            team1={data.team1}
-                            team1_logo={data.team1_logo}
-                            team2={data.team2}
-                            team2_logo={data.team2_logo}
+                            key={data.id}
+                            homeTeam={data.homeTeamName}
+                            homeTeamLogo={data.homeTeamLogo}
+                            awayTeam={data.awayTeamName}
+                            awayTeamLogo={data.awayTeamLogo}
                             goals={data.goals}
-                            date={data.fixture_date}
-                            status={data.status}
+                            date={new Date(data.date)}
+                            status={data.statusShort}
                             onClick={handleMatchClick}
                         />
                     ))}

@@ -5,17 +5,17 @@ import { Separator } from "@/components/ui/separator"
 import { format } from 'date-fns';
 
 interface MatchItemProps {
-    team1: string;
-    team1_logo: string;
-    team2: string;
-    team2_logo: string;
+    homeTeam: string;
+    homeTeamLogo: string;
+    awayTeam: string;
+    awayTeamLogo: string;
     goals: string;
     date: Date;
     status: string;
     onClick: (team1: string, team2: string) => void;
 }
 
-export const MatchItem: React.FC<MatchItemProps> = ({ team1, team1_logo, team2, team2_logo, goals, date, status, onClick }) => {
+export const MatchItem: React.FC<MatchItemProps> = ({ homeTeam, homeTeamLogo, awayTeam, awayTeamLogo, goals, date, status, onClick }) => {
   const formattedDate = format(date, 'EEE, d MMM');
   const formattedTime = format(date, 'HH:mm');
 
@@ -23,16 +23,16 @@ export const MatchItem: React.FC<MatchItemProps> = ({ team1, team1_logo, team2, 
     <React.Fragment>
       <div
         className="flex justify-between items-center cursor-pointer hover:bg-gray-100 p-2"
-        onClick={() => onClick(team1, team2)}
+        onClick={() => onClick(homeTeam, awayTeam)}
       >
         <div className="flex flex-col">
           <div className="flex items-center">
-            <Image src={team1_logo} alt={`${team1} logo`} width={20} height={20} className="mr-2" />
-            <span className="text-sm">{team1}</span>
+            <Image src={homeTeamLogo} alt={`${homeTeam} logo`} width={20} height={20} className="mr-2" />
+            <span className="text-sm">{homeTeam}</span>
           </div>
           <div className="flex items-center mt-1">
-            <Image src={team2_logo} alt={`${team2} logo`} width={20} height={20} className="mr-2" />
-            <span className="text-sm">{team2}</span>
+            <Image src={awayTeamLogo} alt={`${awayTeam} logo`} width={20} height={20} className="mr-2" />
+            <span className="text-sm">{awayTeam}</span>
           </div>
         </div>
         <div className="flex items-center">
