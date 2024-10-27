@@ -12,24 +12,35 @@ import { TableComponent } from "./table";
 import { SofaPlayerEmbed } from './sofa';
 import { Fixture } from '@/types';
 
-async function getTeamFixtures(teamId: number): Promise<Fixture[]> {
-    const url = `/api/get_team_fixtures/?teamId=${teamId}`;
-    const response = await fetch(url);
-
-    if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+async function getTeamFixtures(teamIds: number[]): Promise<Fixture[]> {
+    const url = `/api/get_team_fixtures`
+    let options = {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            "teamIds": teamIds
+        })
     }
-    const data: Fixture[] = await response.json();
-    return data
+    const response = await fetch(url, options);
+    if(!response.ok){
+        throw new Error(`Request failed with status: {response.status}`)
+    }
+
+    const data:Fixture[] = await response.json()
+    return data;
 }
 
 export default function Home() {
     const [selectedMatch, setSelectedMatch] = useState<string>("");
     const [teamFixtures, setTeamFixtures] = useState<Fixture[]>([]);
-    const alNassrTeamId = 2939
+    const alNassrTeamId = 2939;
+    const portugalTeamId = 27;
+    const teamIds = [alNassrTeamId, portugalTeamId]
 
     useEffect(() => {
-        getTeamFixtures(alNassrTeamId).then(data => {
+        getTeamFixtures(teamIds).then(data => {
             if (data) setTeamFixtures(data)
         })
     }, [])
