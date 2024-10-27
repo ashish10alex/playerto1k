@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { NextRequest } from 'next/server'
 import  prisma  from "@/lib/prisma";
+import { Fixture } from '@/types'
 
 type FetchOptions = {
   method: string;
@@ -10,20 +11,6 @@ type FetchOptions = {
   };
 };
 
-
-type Fixture = {
-    id: number;
-    season: number;
-    date: string;
-    homeTeamId: number;
-    homeTeamName: string;
-    homeTeamLogo: string;
-    awayTeamId: number;
-    awayTeamName: string;
-    awayTeamLogo: string;
-    goals: string;
-    statusShort: string;
-}
 
 let getTeamFixtures = async (output:any): Promise<Fixture[]> => {
     let fixtures = [];
@@ -39,7 +26,7 @@ let getTeamFixtures = async (output:any): Promise<Fixture[]> => {
 
         fixtures.push({
             id: output.response[i].fixture.id,
-            season: 2024,
+            season: 2024, // TODO: get season from the API
             date: output.response[i].fixture.date,
             homeTeamId: output.response[i].teams.home.id,
             homeTeamName: output.response[i].teams.home.name,
@@ -65,9 +52,6 @@ async function addTeamFixtures(fixtureData: Fixture[]) {
 
 
 export async function POST(request: NextRequest) {
-    //const { searchParams } = new URL(request.url)
-    //const team_id = searchParams.get('team_id')
-
     let body = await request.json()
     const { teamId } = body;
 
@@ -75,7 +59,7 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ error: 'Team ID is required' }, { status: 400 })
     }
 
-    const season = 2024;
+    const season = 2024; // TODO: get season from the API
     const url = `https://api-football-v1.p.rapidapi.com/v3/fixtures?season=${season}&team=${teamId}`;
     const options: FetchOptions = {
         method: 'GET',

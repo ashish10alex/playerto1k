@@ -10,21 +10,7 @@ import { MatchItem } from "./match";
 import { RadarComponent } from "./radar";
 import { TableComponent } from "./table";
 import { SofaPlayerEmbed } from './sofa';
-
-type Fixture = {
-    id: number;
-    season: number;
-    date: string;
-    homeTeamId: number;
-    homeTeamName: string;
-    homeTeamLogo: string;
-    awayTeamId: number;
-    awayTeamName: string;
-    awayTeamLogo: string;
-    goals: string;
-    statusShort: string;
-}
-
+import { Fixture } from '@/types';
 
 async function getTeamFixtures(teamId: number): Promise<Fixture[]> {
     const url = `/api/get_team_fixtures/?teamId=${teamId}`;
@@ -34,8 +20,6 @@ async function getTeamFixtures(teamId: number): Promise<Fixture[]> {
         throw new Error(`HTTP error! status: ${response.status}`);
     }
     const data: Fixture[] = await response.json();
-    console.log(data);
-
     return data
 }
 
