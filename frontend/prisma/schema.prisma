@@ -54,5 +54,6 @@ model Fixture {
   goals        String
   statusShort  String
   playerIds    Int[] @default([])
+  lastUpdatedAt DateTime @default(now())
 }
 

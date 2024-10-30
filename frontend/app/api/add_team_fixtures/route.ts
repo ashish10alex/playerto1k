@@ -3,8 +3,6 @@ import { NextRequest } from 'next/server'
 import  prisma  from "@/lib/prisma";
 import { Fixture } from '@/types'
 
-
-
 type FetchOptions = {
   method: string;
   headers: {
@@ -46,11 +44,23 @@ let getTeamFixtures = async (output:any): Promise<Fixture[]> => {
 
 async function addTeamFixtures(fixtureData: Fixture[]) {
   await prisma.fixture.createMany({
-        data: fixtureData
+        data: fixtureData,
+        skipDuplicates: true,
   })
 }
 
-
+async function deleteTeamFixtures(){
+    const tenDaysAgo = new Date();
+    tenDaysAgo.setDate(tenDaysAgo.getDate() - 10);
+    const deletedRecords = await prisma.fixture.deleteMany({
+        where: {
+            date: {
+                gte: tenDaysAgo
+            }
+        }
+    })
+    return deletedRecords
+}
 
 export async function POST(request: NextRequest) {
     let body = await request.json()
@@ -74,7 +84,11 @@ export async function POST(request: NextRequest) {
         const response = await fetch(url, options);
         const output = await response.json();
         let fixtures = await getTeamFixtures(output);
-        await addTeamFixtures(fixtures)
+        if (fixtures){
+            const deletedFixtures = await deleteTeamFixtures()
+            console.log(`deleted ${deletedFixtures.count} records from fixture table`)
+            await addTeamFixtures(fixtures)
+        }
         return NextResponse.json({ "fixtures": fixtures })
     } catch (error) {
         console.log(error)
