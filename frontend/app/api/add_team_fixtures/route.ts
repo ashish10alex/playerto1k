@@ -37,7 +37,7 @@ let getTeamFixtures = async (season: number, teamId: number): Promise<Fixture[]>
 
         fixtures.push({
             id: output.response[i].fixture.id,
-            season: 2024, // TODO: get season from the API
+            season: season,
             date: output.response[i].fixture.date,
             homeTeamId: output.response[i].teams.home.id,
             homeTeamName: output.response[i].teams.home.name,

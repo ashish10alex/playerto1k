@@ -1,0 +1,17 @@
+-- AlterTable
+ALTER TABLE "PlayerFixtureStatistic" ALTER COLUMN "offsides" DROP NOT NULL,
+ALTER COLUMN "shots_total" DROP NOT NULL,
+ALTER COLUMN "shots_on" DROP NOT NULL,
+ALTER COLUMN "goals_conceded" DROP NOT NULL,
+ALTER COLUMN "goals_assists" DROP NOT NULL,
+ALTER COLUMN "passes_total" DROP NOT NULL,
+ALTER COLUMN "passes_key" DROP NOT NULL,
+ALTER COLUMN "passes_accuracy" DROP NOT NULL,
+ALTER COLUMN "duels_total" DROP NOT NULL,
+ALTER COLUMN "duels_won" DROP NOT NULL,
+ALTER COLUMN "dribbles_attempts" DROP NOT NULL,
+ALTER COLUMN "dribbles_success" DROP NOT NULL,
+ALTER COLUMN "cards_yellow" DROP NOT NULL,
+ALTER COLUMN "cards_red" DROP NOT NULL,
+ALTER COLUMN "penalty_scored" DROP NOT NULL,
+ALTER COLUMN "penalty_missed" DROP NOT NULL;

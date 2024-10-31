@@ -57,3 +57,66 @@ model Fixture {
   lastUpdatedAt DateTime @default(now())
 }
 
+model PlayerFixtureStatistic {
+  playerId        Int
+  fixtureId       Int
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // Games
+  games_minutes    Int?
+  games_number     Int?
+  games_position   String
+  games_rating     String?
+  games_captain    Boolean
+  games_substitute Boolean?
+
+  // Other stats
+  offsides         Int?
+
+  // Shots
+  shots_total      Int?
+  shots_on         Int?
+
+  // Goals
+  goals_total      Int?
+  goals_conceded   Int?
+  goals_assists    Int?
+  goals_saves      Int?
+
+  // Passes
+  passes_total     Int?
+  passes_key       Int?
+  passes_accuracy  String?
+
+  // Tackles
+  tackles_total    Int?
+  tackles_blocks   Int?
+  tackles_interceptions Int?
+
+  // Duels
+  duels_total      Int?
+  duels_won        Int?
+
+  // Dribbles
+  dribbles_attempts Int?
+  dribbles_success  Int?
+  dribbles_past     Int?
+
+  // Fouls
+  fouls_drawn      Int?
+  fouls_committed  Int?
+
+  // Cards
+  cards_yellow     Int?
+  cards_red        Int?
+
+  // Penalty
+  penalty_won      Int?
+  penalty_commited Int?
+  penalty_scored   Int?
+  penalty_missed   Int?
+  penalty_saved    Int?
+
+  @@id([playerId, fixtureId])
+}

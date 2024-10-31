@@ -5,6 +5,7 @@ import { Separator } from "@/components/ui/separator"
 import { format } from 'date-fns';
 
 interface MatchItemProps {
+    fixtureId: number;
     homeTeam: string;
     homeTeamLogo: string;
     awayTeam: string;
@@ -12,10 +13,10 @@ interface MatchItemProps {
     goals: string;
     date: Date;
     status: string;
-    onClick: (team1: string, team2: string) => void;
+    onClick: (fixtureId:number) => void;
 }
 
-export const MatchItem: React.FC<MatchItemProps> = ({ homeTeam, homeTeamLogo, awayTeam, awayTeamLogo, goals, date, status, onClick }) => {
+export const MatchItem: React.FC<MatchItemProps> = ({ fixtureId, homeTeam, homeTeamLogo, awayTeam, awayTeamLogo, goals, date, status, onClick }) => {
   const formattedDate = format(date, 'EEE, d MMM');
   const formattedTime = format(date, 'HH:mm');
 
@@ -23,7 +24,7 @@ export const MatchItem: React.FC<MatchItemProps> = ({ homeTeam, homeTeamLogo, aw
     <React.Fragment>
       <div
         className="flex justify-between items-center cursor-pointer hover:bg-gray-100 p-2"
-        onClick={() => onClick(homeTeam, awayTeam)}
+        onClick={(_) => onClick(fixtureId)}
       >
         <div className="flex flex-col">
           <div className="flex items-center">

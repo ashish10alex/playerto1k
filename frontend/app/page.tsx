@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { LineComponent } from "./line";
 import { MatchItem } from "./match";
-import { RadarComponent } from "./radar";
+//import { RadarComponent } from "./radar";
 import { TableComponent } from "./table";
 import { SofaPlayerEmbed } from './sofa';
 import { Fixture } from '@/types';
@@ -32,8 +32,21 @@ async function getTeamFixtures(teamIds: number[]): Promise<Fixture[]> {
     return data;
 }
 
+async function getFixtureStats(fixtureId: number): Promise<any> {
+    const url = `/api/get_fixture_stats?fixtureId=${fixtureId}`
+    const response = await fetch(url);
+
+    if(!response.ok){
+        throw new Error(`Request failed with status: {response.status}`)
+    }
+
+    const data = await response.json()
+    return data;
+}
+
 export default function Home() {
-    const [selectedMatch, setSelectedMatch] = useState<string>("");
+    const [selectedFixture, setSelectedFixture] = useState<number | null>(null);
+    const [fixtureStats, setFixtureStats] = useState<any>(null);
     const [teamFixtures, setTeamFixtures] = useState<Fixture[]>([]);
     const alNassrTeamId = 2939;
     const portugalTeamId = 27;
@@ -47,8 +60,12 @@ export default function Home() {
 
 
 
-    const handleMatchClick = (match: string) => {
-        setSelectedMatch(match);
+    const handleMatchClick = async (fixtureId: any) => {
+        console.log(fixtureId);
+        const fixtureStats = await getFixtureStats(fixtureId);
+        console.log(fixtureStats);
+        setFixtureStats(fixtureStats);
+        setSelectedFixture(fixtureId);
     };
 
     return (
@@ -62,6 +79,7 @@ export default function Home() {
                     {teamFixtures.map((data:any) => (
                         <MatchItem
                             key={data.id}
+                            fixtureId={data.id}
                             homeTeam={data.homeTeamName}
                             homeTeamLogo={data.homeTeamLogo}
                             awayTeam={data.awayTeamName}
@@ -82,7 +100,8 @@ export default function Home() {
                     <TableComponent />
                 </div>
                 <div className="flex-1">
-                    <RadarComponent selectedMatch={selectedMatch} />
+                    <p>Fixture stats</p>
+                    <pre>{JSON.stringify(fixtureStats, null, 2)}</pre>
                 </div>
             </div>
         </div>

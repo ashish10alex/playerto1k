@@ -105,16 +105,28 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 async function getPlayerGoals(playerId: number): Promise<any | null> {
+    //let goalsByTeam:any = {}
     //let totalGoals = 0
-    //for (let season = 2024; season < 2025; season++) {
+    //for (let season = 2024; season <= 2024; season++) {
     //    const response = await fetch(`/api/get_player_stat?player_id=${playerId}&season=${season}`)
     //    let output = await response.json()
-    //    console.log(output.response.length)
+    //    console.log(`season: ${season} `)
+    //    console.log(output)
     //    for (let i = 0; i < output.response[0].statistics.length; i++) {
-    //        console.log(`season: ${season} team: ${output.response[0].statistics[i].team.name} goals: ${output.response[0].statistics[i].goals.total}`)
+    //        const _goals = output.response[0].statistics[i].goals.total
+    //        const _teamName = output.response[0].statistics[i].team.name
+    //        const _league = output.response[0].statistics[i].league.name
+    //        console.log(`season: ${season} team: ${_teamName} goals: ${_goals} league: ${_league}`)
+    //        if (goalsByTeam[_teamName]) {
+    //            goalsByTeam[_teamName] += _goals
+    //        }else{
+    //            goalsByTeam[_teamName] = _goals
+    //        }
+    //        //console.log(`season: ${season} team: ${output.response[0].statistics[i].team.name} goals: ${output.response[0].statistics[i].goals.total}`)
     //        totalGoals += output.response[0].statistics[i].goals.total
     //    }
     //}
+    //console.log(goalsByTeam)
     //return totalGoals
     return 907
 }
@@ -124,9 +136,10 @@ export function LineComponent() {
    const [totalGoals, setTotalGoals] = useState()
 
    useEffect(() => {
-       getPlayerGoals(874).then(data => {
+        const ronaldoPlayerId = 874
+        getPlayerGoals(ronaldoPlayerId).then(data => {
            if (data) setTotalGoals(data)
-       })
+        })
    }, [])
 
   return (
