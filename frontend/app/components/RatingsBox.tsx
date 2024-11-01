@@ -5,6 +5,7 @@ interface RatingBoxProps {
 }
 
 export const RatingBox: React.FC<RatingBoxProps> = ({ rating }) => {
+  if (rating === "") return null;
   const _rating = Number(rating);
   const getBackgroundColor = (rating: number): string => {
     if (rating >= 8) return '#4CAF50'; // Green

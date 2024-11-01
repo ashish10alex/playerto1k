@@ -5,7 +5,6 @@ import { FixtureStats } from '@/types';
 import RatingBox from './RatingsBox';
 
 const FixtureStatsComponent: React.FC<{ stats: FixtureStats }> = ({ stats }) => {
-    console.log(stats);
     return (
 
         <div>
@@ -29,7 +28,7 @@ const FixtureStatsComponent: React.FC<{ stats: FixtureStats }> = ({ stats }) => 
                     <StatItem icon={<FaTshirt />} label="Number" value={stats?.playerFixtureStatistics[0]?.games_number} />
                     <StatItem icon={<FaFutbol />} label="Position" value={stats?.playerFixtureStatistics[0]?.games_position} />
                     <StatItem icon={<FaStar />} label="Rating" value={stats?.playerFixtureStatistics[0]?.games_rating} />
-                    <StatItem icon={<FaStar />} label="Rating" value={<RatingBox rating={stats?.playerFixtureStatistics[0]?.games_rating} />} />
+                    <StatItem icon={<FaStar />} label="Rating" value={<RatingBox rating={stats?.playerFixtureStatistics[0]?.games_rating || ""} />} />
                     <StatItem icon={<FaFlag />} label="Captain" value={stats?.playerFixtureStatistics[0]?.games_captain ? 'Yes' : 'No'} />
                 </StatSection>
 

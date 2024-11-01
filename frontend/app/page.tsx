@@ -61,7 +61,6 @@ export default function Home() {
 
     const handleMatchClick = async (fixtureId: any) => {
         const fixtureStats = await getFixtureStats(fixtureId);
-        console.log(fixtureStats)
         setFixtureStats(fixtureStats);
         setSelectedFixture(fixtureId);
     };
