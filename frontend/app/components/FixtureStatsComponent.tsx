@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaFutbol, FaClock, FaTshirt, FaStar, FaFlag, FaBullseye, FaShareAlt, FaShieldAlt, FaExchangeAlt, FaRunning, FaHandPaper, FaCaretSquareRight, FaCaretSquareLeft, FaUserFriends, FaFootballBall } from 'react-icons/fa';
+import { FaClock,  FaStar, FaBullseye, FaShareAlt, FaShieldAlt, FaExchangeAlt, FaRunning, FaHandPaper, FaCaretSquareRight, FaCaretSquareLeft, FaUserFriends, FaFootballBall } from 'react-icons/fa';
 import MatchItem from '../match';
 import { FixtureStats } from '@/types';
 import RatingBox from './RatingsBox';
@@ -25,11 +25,8 @@ const FixtureStatsComponent: React.FC<{ stats: FixtureStats }> = ({ stats }) => 
 
                 <StatSection title="General">
                     <StatItem icon={<FaClock />} label="Minutes" value={stats?.playerFixtureStatistics[0]?.games_minutes} />
-                    <StatItem icon={<FaTshirt />} label="Number" value={stats?.playerFixtureStatistics[0]?.games_number} />
-                    <StatItem icon={<FaFutbol />} label="Position" value={stats?.playerFixtureStatistics[0]?.games_position} />
-                    <StatItem icon={<FaStar />} label="Rating" value={stats?.playerFixtureStatistics[0]?.games_rating} />
                     <StatItem icon={<FaStar />} label="Rating" value={<RatingBox rating={stats?.playerFixtureStatistics[0]?.games_rating || ""} />} />
-                    <StatItem icon={<FaFlag />} label="Captain" value={stats?.playerFixtureStatistics[0]?.games_captain ? 'Yes' : 'No'} />
+                    <StatItem icon={<FaHandPaper />} label="Cards" value={`🟨 ${stats?.playerFixtureStatistics[0]?.cards_yellow} 🟥 ${stats?.playerFixtureStatistics[0]?.cards_red}`} />
                 </StatSection>
 
                 <StatSection title="Goals & Shots">
@@ -42,17 +39,13 @@ const FixtureStatsComponent: React.FC<{ stats: FixtureStats }> = ({ stats }) => 
                 <StatSection title="Passing">
                     <StatItem icon={<FaShareAlt />} label="Passes (accurate)" value={`${stats?.playerFixtureStatistics[0]?.passes_total} (${stats?.playerFixtureStatistics[0]?.passes_accuracy})`} />
                     <StatItem icon={<FaUserFriends />} label="Key Passes" value={stats?.playerFixtureStatistics[0]?.passes_key} />
+                    <StatItem icon={<FaRunning />} label="Dribbles (Success)" value={`${stats?.playerFixtureStatistics[0]?.dribbles_attempts} (${stats?.playerFixtureStatistics[0]?.dribbles_success})`} />
                 </StatSection>
 
                 <StatSection title="Defensive Actions">
                     <StatItem icon={<FaShieldAlt />} label="Tackles" value={stats?.playerFixtureStatistics[0]?.tackles_total} />
                     <StatItem icon={<FaExchangeAlt />} label="Interceptions" value={stats?.playerFixtureStatistics[0]?.tackles_interceptions} />
                     <StatItem icon={<FaExchangeAlt />} label="Duels (Won)" value={`${stats?.playerFixtureStatistics[0]?.duels_total} (${stats?.playerFixtureStatistics[0]?.duels_won})`} />
-                </StatSection>
-
-                <StatSection title="Dribbling & Fouls">
-                    <StatItem icon={<FaRunning />} label="Dribbles (Success)" value={`${stats?.playerFixtureStatistics[0]?.dribbles_attempts} (${stats?.playerFixtureStatistics[0]?.dribbles_success})`} />
-                    <StatItem icon={<FaHandPaper />} label="Cards" value={`🟨 ${stats?.playerFixtureStatistics[0]?.cards_yellow} 🟥 ${stats?.playerFixtureStatistics[0]?.cards_red}`} />
                 </StatSection>
             </div>
         </div>
