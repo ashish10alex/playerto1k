@@ -54,6 +54,7 @@ model Fixture {
   goals        String
   statusShort  String
   playerIds    Int[] @default([])
+  playerFixtureStatistics PlayerFixtureStatistic[]
   lastUpdatedAt DateTime @default(now())
 }
 
@@ -118,5 +119,6 @@ model PlayerFixtureStatistic {
   penalty_missed   Int?
   penalty_saved    Int?
 
+  fixture   Fixture @relation(fields: [fixtureId], references: [id])
   @@id([playerId, fixtureId])
 }

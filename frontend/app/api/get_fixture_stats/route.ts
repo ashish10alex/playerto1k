@@ -11,12 +11,14 @@ export async function GET(request: NextRequest) {
         return NextResponse.json({ error: 'Player ID is required' }, { status: 400 })
     }
     try {
-        const result = await prisma.playerFixtureStatistic.findFirst({
+        const result = await prisma.fixture.findUnique({
             where: {
-                fixtureId: parseInt(fixtureId)
+                id: parseInt(fixtureId)
+            },
+            include: {
+                playerFixtureStatistics: true
             }
-        })
-        console.log(result)
+        });
         return NextResponse.json(result)
     } catch (error) {
         return NextResponse.json({ error: 'Failed to fetch data' }, { status: 500 })

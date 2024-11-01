@@ -8,9 +8,10 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { LineComponent } from "./line";
 import { MatchItem } from "./match";
 //import { RadarComponent } from "./radar";
-import { TableComponent } from "./table";
+//import { TableComponent } from "./table";
 import { SofaPlayerEmbed } from './sofa';
 import { Fixture } from '@/types';
+import FixtureStatsComponent from "./components/FixtureStatsComponent";
 
 async function getTeamFixtures(teamIds: number[]): Promise<Fixture[]> {
     const url = `/api/get_team_fixtures`
@@ -24,11 +25,11 @@ async function getTeamFixtures(teamIds: number[]): Promise<Fixture[]> {
         })
     }
     const response = await fetch(url, options);
-    if(!response.ok){
+    if (!response.ok) {
         throw new Error(`Request failed with status: {response.status}`)
     }
 
-    const data:Fixture[] = await response.json()
+    const data: Fixture[] = await response.json()
     return data;
 }
 
@@ -36,7 +37,7 @@ async function getFixtureStats(fixtureId: number): Promise<any> {
     const url = `/api/get_fixture_stats?fixtureId=${fixtureId}`
     const response = await fetch(url);
 
-    if(!response.ok){
+    if (!response.ok) {
         throw new Error(`Request failed with status: {response.status}`)
     }
 
@@ -58,12 +59,9 @@ export default function Home() {
         })
     }, [])
 
-
-
     const handleMatchClick = async (fixtureId: any) => {
-        console.log(fixtureId);
         const fixtureStats = await getFixtureStats(fixtureId);
-        console.log(fixtureStats);
+        console.log(fixtureStats)
         setFixtureStats(fixtureStats);
         setSelectedFixture(fixtureId);
     };
@@ -76,7 +74,7 @@ export default function Home() {
             <ScrollArea className="h-100 w-80 rounded-md border">
                 <div className="p-4">
                     <h4 className="mb-4 text-sm font-bold leading-none">Matches</h4>
-                    {teamFixtures.map((data:any) => (
+                    {teamFixtures.map((data: any) => (
                         <MatchItem
                             key={data.id}
                             fixtureId={data.id}
@@ -92,16 +90,12 @@ export default function Home() {
                     ))}
                 </div>
             </ScrollArea>
-            <div className="flex flex-col flex-grow">
-                <div className="flex-grow">
+            <div className="flex flex-col flex-grow gap-2">
+                <div>
                     <LineComponent />
                 </div>
-                <div className="flex-1">
-                    <TableComponent />
-                </div>
-                <div className="flex-1">
-                    <p>Fixture stats</p>
-                    <pre>{JSON.stringify(fixtureStats, null, 2)}</pre>
+                <div>
+                    <FixtureStatsComponent stats={fixtureStats} />
                 </div>
             </div>
         </div>

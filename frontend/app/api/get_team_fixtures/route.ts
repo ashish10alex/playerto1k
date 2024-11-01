@@ -17,6 +17,9 @@ export async function POST(request: NextRequest) {
                     { homeTeamId: parseInt(teamId) },
                     { awayTeamId: parseInt(teamId) },
                 ]),
+                date: {
+                    gte: new Date(new Date().setMonth(new Date().getMonth() - 1))
+                }
             },
             orderBy: {
                 date: "asc"
