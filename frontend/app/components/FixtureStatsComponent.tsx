@@ -1,5 +1,6 @@
 import React from 'react';
-import { FaClock,  FaStar, FaBullseye, FaShareAlt, FaShieldAlt, FaExchangeAlt, FaRunning, FaHandPaper, FaCaretSquareRight, FaCaretSquareLeft, FaUserFriends, FaFootballBall } from 'react-icons/fa';
+import { FaClock,  FaStar, FaBullseye, FaShareAlt, FaShieldAlt, FaExchangeAlt, FaRunning, FaHandPaper, FaCaretSquareRight, FaCaretSquareLeft, FaUserFriends } from 'react-icons/fa';
+import { IoMdFootball } from "react-icons/io";
 import MatchItem from '../match';
 import { FixtureStats } from '@/types';
 import RatingBox from './RatingsBox';
@@ -30,7 +31,7 @@ const FixtureStatsComponent: React.FC<{ stats: FixtureStats }> = ({ stats }) => 
                 </StatSection>
 
                 <StatSection title="Goals & Shots">
-                    <StatItem icon={<FaFootballBall />} label="Goals" value={stats?.playerFixtureStatistics[0]?.goals_total || 0} />
+                    <StatItem icon={<IoMdFootball />} label="Goals" value={stats?.playerFixtureStatistics[0]?.goals_total || 0} />
                     <StatItem icon={<FaBullseye />} label="Shots (On Target)" value={`${stats?.playerFixtureStatistics[0]?.shots_total} (${stats?.playerFixtureStatistics[0]?.shots_on})`} />
                     <StatItem icon={<FaCaretSquareRight />} label="Penalties Scored" value={stats?.playerFixtureStatistics[0]?.penalty_scored} />
                     <StatItem icon={<FaCaretSquareLeft />} label="Penalties Missed" value={stats?.playerFixtureStatistics[0]?.penalty_missed} />
