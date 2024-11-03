@@ -60,14 +60,14 @@ async function addTeamFixtures(fixtureData: Fixture[]) {
     })
 }
 
-async function deleteTeamFixtures() {
+async function deleteTeamFixturesWithoutGoalsBeforeCurrentDate() {
     const tenDaysAgo = new Date();
     tenDaysAgo.setDate(tenDaysAgo.getDate() - 10);
     const deletedRecords = await prisma.fixture.deleteMany({
         where: {
-            date: {
-                gte: tenDaysAgo
-            }
+            AND: [
+                {goals: "", date: {lte: new Date()}}
+            ]
         }
     })
     return deletedRecords
@@ -82,6 +82,7 @@ export async function POST(request: NextRequest) {
     }
 
     try {
+        //deleteTeamFixturesWithoutGoalsBeforeCurrentDate()
         const seasons = [2024, 2025]
         for (let i = 0; i < teamIds.length; i++) {
             for (let j = 0; j < seasons.length; j++) {

@@ -40,7 +40,7 @@ const FixtureStatsComponent: React.FC<{ stats: FixtureStats }> = ({ stats }) => 
                 <StatSection title="Passing">
                     <StatItem icon={<FaShareAlt />} label="Passes (accurate)" value={`${stats?.playerFixtureStatistics[0]?.passes_total} (${stats?.playerFixtureStatistics[0]?.passes_accuracy})`} />
                     <StatItem icon={<FaUserFriends />} label="Key Passes" value={stats?.playerFixtureStatistics[0]?.passes_key} />
-                    <StatItem icon={<FaRunning />} label="Dribbles (Success)" value={`${stats?.playerFixtureStatistics[0]?.dribbles_attempts} (${stats?.playerFixtureStatistics[0]?.dribbles_success})`} />
+                    <StatItem icon={<FaRunning />} label="Dribbles (Success)" value={`${stats?.playerFixtureStatistics[0]?.dribbles_attempts} (${stats?.playerFixtureStatistics[0]?.dribbles_success || 0})`} />
                 </StatSection>
 
                 <StatSection title="Defensive Actions">

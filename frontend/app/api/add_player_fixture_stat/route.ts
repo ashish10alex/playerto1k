@@ -125,7 +125,7 @@ export async function POST(request: NextRequest) {
                 }
             }
         })
-        console.log(fixtures.length)
+        //console.log(fixtures.length)
 
         //const _fixtureId = 1219959
         //const playerStatistics = await getPlayerStatsForFixture(_fixtureId, playerId)
