@@ -13,7 +13,7 @@ interface MatchItemProps {
     goals: string;
     date: Date;
     status: string;
-    onClick: (fixtureId:number) => void;
+    onClick: (fixtureId:number, date: Date) => void;
 }
 
 export const MatchItem: React.FC<MatchItemProps> = ({ fixtureId, homeTeam, homeTeamLogo, awayTeam, awayTeamLogo, goals, date, status, onClick }) => {
@@ -24,7 +24,7 @@ export const MatchItem: React.FC<MatchItemProps> = ({ fixtureId, homeTeam, homeT
     <React.Fragment>
       <div
         className="flex justify-between items-center cursor-pointer hover:bg-gray-100 p-2"
-        onClick={(_) => onClick(fixtureId)}
+        onClick={(_) => onClick(fixtureId, date)}
       >
         <div className="flex flex-col">
           <div className="flex items-center">

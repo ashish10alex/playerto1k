@@ -67,3 +67,37 @@ export interface FixtureStats {
     status: string;
 }
 
+
+//export type MatchResult = 'W' | 'D' | 'L';
+
+export interface MatchItemProps {
+    fixtureId: number;
+    date: Date;
+    competition: { name: string, logo: string };
+    teams: { home: { name: string, logo: string }, away: { name: string, logo: string } };
+    score: string;
+    status: string;
+}
+
+
+export interface FixturePredictionProps {
+    competition: {
+        name: string,
+        logo: string
+    },
+    teams: {
+        home: {
+            name: string,
+            logo: string,
+            recentForm: string[];
+        },
+        away: {
+            name: string,
+            logo: string,
+            recentForm: string[];
+        },
+    },
+    potentialWinner: string,
+    headToHeads:MatchItemProps[]
+}
+
