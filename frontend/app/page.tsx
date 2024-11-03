@@ -95,31 +95,30 @@ export default function Home() {
 
     const handleMatchClick = async (fixtureId: any, date: Date) => {
         const data = await getFixturePredictions(fixtureId)
-        console.log(data)
 
         const headToHeads = data.response[0].h2h.filter((h2h: any) => h2h.goals.home !== null)
             .map((h2h: any) => {
-            return {
-                fixtureId: h2h.fixture.id,
-                date: new Date(h2h.fixture.date),
-                competition: {
-                    name: h2h.league.name,
-                    logo: h2h.league.logo
-                },
-                teams: {
-                    home: {
-                        name: h2h.teams.home.name,
-                        logo: h2h.teams.home.logo
+                return {
+                    fixtureId: h2h.fixture.id,
+                    date: new Date(h2h.fixture.date),
+                    competition: {
+                        name: h2h.league.name,
+                        logo: h2h.league.logo
                     },
-                    away: {
-                        name: h2h.teams.away.name,
-                        logo: h2h.teams.away.logo
-                    }
-                },
-                score: h2h.goals.home + '-' + h2h.goals.away,
-                status: h2h.fixture.status
-            }
-        })
+                    teams: {
+                        home: {
+                            name: h2h.teams.home.name,
+                            logo: h2h.teams.home.logo
+                        },
+                        away: {
+                            name: h2h.teams.away.name,
+                            logo: h2h.teams.away.logo
+                        }
+                    },
+                    score: h2h.goals.home + '-' + h2h.goals.away,
+                    status: h2h.fixture.status
+                }
+            })
 
         const fixturePredictions = {
             competition: {
@@ -130,12 +129,12 @@ export default function Home() {
                 home: {
                     name: data.response[0].teams.home.name || '',
                     logo: data.response[0].teams.home.logo || '',
-                    recentForm: data.response[0].teams.home.league.form.split(''),
-               },
+                    recentForm: data.response[0].teams.home.league.form.split('').slice(-5),
+                },
                 away: {
                     name: data.response[0].teams.away.name || '',
                     logo: data.response[0].teams.away.logo || '',
-                    recentForm: data.response[0].teams.away.league.form.split(''),
+                    recentForm: data.response[0].teams.away.league.form.split('').slice(-5),
                 }
             },
             potentialWinner: data.response[0].predictions.winner.name || '',
@@ -143,12 +142,11 @@ export default function Home() {
         }
         setFixturePredictions(fixturePredictions)
         setSelectedFixtureDate(date)
-        console.log(date)
 
         // ***  DO NOT DELETE ***//
-        //const fixtureStats = await getFixtureStats(fixtureId);
-        //setFixtureStats(fixtureStats);
-        //setSelectedFixture(fixtureId);
+        const fixtureStats = await getFixtureStats(fixtureId);
+        setFixtureStats(fixtureStats);
+        setSelectedFixture(fixtureId);
     };
 
     return (
@@ -156,7 +154,7 @@ export default function Home() {
             <div className="w-80">
                 <SofaPlayerEmbed />
             </div>
-            <ScrollArea className="h-100 w-80 rounded-md border">
+            <ScrollArea className="h-100 w-80 rounded-md border mx-auto p-4">
                 <div className="p-4">
                     <h4 className="mb-4 text-sm font-bold leading-none">Matches</h4>
                     {teamFixtures.map((data: any) => (
@@ -179,9 +177,11 @@ export default function Home() {
                 <div>
                     <LineComponent />
                 </div>
-                <div>
-                    {/* selectedFixture ? <FixtureStatsComponent stats={fixtureStats} /> : <HeadedToHead {...fixturePredictions} />  */}
-                    { fixtureDateInFuture(selectedFixtureDate || new Date()) ? <HeadedToHead {...fixturePredictions} /> : <FixtureStatsComponent stats={fixtureStats} /> }
+                <div className="w-1/2">
+                    {fixtureDateInFuture(selectedFixtureDate || new Date())
+                        ? <HeadedToHead {...fixturePredictions} />
+                        : <FixtureStatsComponent stats={fixtureStats} />
+                    }
                 </div>
             </div>
         </div>

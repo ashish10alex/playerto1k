@@ -24,7 +24,6 @@ export async function GET(request: NextRequest) {
     }
     try {
         const response = await getFixturePredictions(fixtureId)
-        console.log(response)
         return NextResponse.json(response)
     } catch (error) {
         return NextResponse.json({ error: 'Failed to fetch data' }, { status: 500 })
