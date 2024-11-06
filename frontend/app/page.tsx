@@ -4,13 +4,14 @@ import * as React from "react"
 import { useState, useEffect } from 'react';
 
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { LineComponent } from "./line";
+import  AllGoals  from "./components/AllGoals";
 import { MatchItem } from "./match";
 import { SofaPlayerEmbed } from './sofa';
 import { Fixture } from '@/types';
 import FixtureStatsComponent from "./components/FixtureStatsComponent";
 import HeadedToHead from './components/HeadToHead';
 import { FixturePredictionProps } from "@/types"
+import BarPassing from './components/BarPassing'
 
 async function getTeamFixtures(teamIds: number[]): Promise<Fixture[]> {
     const url = `/api/get_team_fixtures`
@@ -151,10 +152,10 @@ export default function Home() {
 
     return (
         <div className="flex h-screen">
-            <div className="w-80">
+            <div className="w-120">
                 <SofaPlayerEmbed />
             </div>
-            <ScrollArea className="h-100 w-80 rounded-md border mx-auto p-4">
+            <ScrollArea className="h-100 w-100 rounded-md border mx-auto p-2">
                 <div className="p-4">
                     <h4 className="mb-4 text-sm font-bold leading-none">Matches</h4>
                     {teamFixtures.map((data: any) => (
@@ -174,14 +175,19 @@ export default function Home() {
                 </div>
             </ScrollArea>
             <div className="flex flex-col flex-grow gap-2">
-                <div>
-                    <LineComponent />
+                <div className="p-4">
+                    <AllGoals />
                 </div>
-                <div className="w-1/2">
-                    {fixtureDateInFuture(selectedFixtureDate || new Date())
-                        ? <HeadedToHead {...fixturePredictions} />
-                        : <FixtureStatsComponent stats={fixtureStats} />
-                    }
+                <div className="flex flex-row"> {/* New flex container */}
+                    <div className="w-1/2 pr-2"> {/* Add some padding for spacing */}
+                        {fixtureDateInFuture(selectedFixtureDate || new Date())
+                            ? <HeadedToHead {...fixturePredictions} />
+                            : <FixtureStatsComponent stats={fixtureStats} />
+                        }
+                    </div>
+                    <div className="w-1/2 pl-2"> {/* Add some padding for spacing */}
+                        <BarPassing />
+                    </div>
                 </div>
             </div>
         </div>

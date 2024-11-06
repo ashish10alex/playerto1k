@@ -1,7 +1,6 @@
 import React from 'react';
 import { FaClock,  FaStar, FaBullseye, FaShareAlt, FaShieldAlt, FaExchangeAlt, FaRunning, FaHandPaper, FaCaretSquareRight, FaCaretSquareLeft, FaUserFriends } from 'react-icons/fa';
 import { IoMdFootball } from "react-icons/io";
-import MatchItem from '../match';
 import { FixtureStats } from '@/types';
 import Image from 'next/image';
 import RatingBox from './RatingsBox';
@@ -15,7 +14,7 @@ const FixtureStatsComponent: React.FC<{ stats: FixtureStats }> = ({ stats }) => 
                 <CardHeader>
                     <CardTitle className="text-2xl font-bold text-center">
                         <div className="flex justify-center items-center space-x-2">
-                            <Image src={stats.homeTeamLogo} alt={stats.homeTeamName} width={50} height={50} />
+                            <Image src={stats?.homeTeamLogo} alt={stats?.homeTeamName} width={50} height={50} />
                             <span>{stats?.homeTeamName}</span>
                             <span>vs</span>
                             <span>{stats?.awayTeamName}</span>
