@@ -4,7 +4,7 @@ import * as React from "react"
 import { useState, useEffect } from 'react';
 
 import { ScrollArea } from "@/components/ui/scroll-area"
-import  AllGoals  from "./components/AllGoals";
+import AllGoals from "./components/AllGoals";
 import { MatchItem } from "./match";
 import { SofaPlayerEmbed } from './sofa';
 import { Fixture } from '@/types';
@@ -12,6 +12,7 @@ import FixtureStatsComponent from "./components/FixtureStatsComponent";
 import HeadedToHead from './components/HeadToHead';
 import { FixturePredictionProps } from "@/types"
 import BarPassing from './components/BarPassing'
+import ChadTable from './components/ChadTable'
 
 async function getTeamFixtures(teamIds: number[]): Promise<Fixture[]> {
     const url = `/api/get_team_fixtures`
@@ -178,15 +179,20 @@ export default function Home() {
                 <div className="p-4">
                     <AllGoals />
                 </div>
-                <div className="flex flex-row"> {/* New flex container */}
-                    <div className="w-1/2 pr-2"> {/* Add some padding for spacing */}
+                <div className="flex flex-row"> {/* Main flex container */}
+                    <div className="w-1/2 pr-2"> {/* Left column */}
                         {fixtureDateInFuture(selectedFixtureDate || new Date())
                             ? <HeadedToHead {...fixturePredictions} />
                             : <FixtureStatsComponent stats={fixtureStats} />
                         }
                     </div>
-                    <div className="w-1/2 pl-2"> {/* Add some padding for spacing */}
-                        <BarPassing />
+                    <div className="w-1/2 pl-2 flex flex-col"> {/* Right column */}
+                        <div>
+                            <ChadTable />
+                        </div>
+                        {/* <div className="mb-2">
+                            <BarPassing />
+                        </div> */}
                     </div>
                 </div>
             </div>
