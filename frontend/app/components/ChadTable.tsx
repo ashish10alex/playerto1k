@@ -60,8 +60,6 @@ async function caculateSummaryStats(playerPenStats: any): Promise<any> {
 
 
 export default function Component() {
-
-
     const numberOfGames = 10
     let [playerPenStats, setPlayerPenStats] = useState([{ "opponent": "opponent", "fixtureId": "fixtureId", "fixtureDate": "fixtureDate", "totalGoals": 0, "penaltyGoals": 0 }])
     let [penaltyGoalsPercentage, setPenaltyGoalsPercentage] = useState(0)
@@ -80,7 +78,7 @@ export default function Component() {
 
     return (
         <Table>
-            <TableCaption> Penalty goal percentage: {penaltyGoalsPercentage}</TableCaption>
+            <TableCaption> Of the games player has scored, percentage of goals that are penalties: {penaltyGoalsPercentage}</TableCaption>
             <TableHeader>
                 <TableRow>
                     <TableHead className="w-[100px]">opponent</TableHead>
